@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,10 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function() {
-    return Inertia::render('Admin/Index');
+Route::get('/admin', function () {
+    return redirect('/admin/dashboard');
 })->middleware('admin');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::get('/admin/dashboard', function () {
+    return Inertia::render('Admin/Index');
+})->name('dashboard')->middleware('admin');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->name('dashboard');
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/admin/customers', [CustomerController::class, 'index'])->name('customers');
+});
