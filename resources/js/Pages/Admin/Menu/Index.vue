@@ -2,11 +2,273 @@
     <dashboard-layout>
         <template #content>
             <div class="container px-6 mx-auto grid">
-                <h2
-                    class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-                >
-                    Customers
-                </h2>
+                <div class="flex items-center justify-between">
+                    <h2
+                        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+                    >
+                        Products
+                    </h2>
+                    <button
+                        @click="showProduct = !showProduct"
+                        class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
+                    >
+                        <svg
+                            class="w-4 h-4 mr-2 -ml-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                            ></path>
+                        </svg>
+                        <span>Add Product</span>
+                    </button>
+                    <transition>
+                        <div
+                            v-show="showProduct"
+                            class="fixed z-30 inset-0 overflow-y-auto"
+                        >
+                            <form
+                                action="/admin/users/create"
+                                method="POST"
+                                enctype="multipart/form-data"
+                            >
+                                <div class="fixed z-40 inset-0 overflow-y-auto">
+                                    <div
+                                        class="flex justify-center items-center pt-4 px-4 min-h-screen"
+                                    >
+                                        <transition
+                                            enter-active-class="ease-out duration-300"
+                                            enter-class="opacity-0"
+                                            enter-to-class="opacity-100"
+                                            leave-active-class="ease-in duration-200"
+                                            leave-class="opacity-100"
+                                            leave-to-class="opacity-0"
+                                        >
+                                            <div
+                                                v-show="showProduct"
+                                                class="fixed inset-0 transition-opacity"
+                                                @click="showProduct = false"
+                                            >
+                                                <div
+                                                    class="absolute inset-0 bg-gray-500 opacity-75"
+                                                ></div>
+                                            </div>
+                                        </transition>
+                                        <transition
+                                            enter-active-class="ease-out duration-300"
+                                            enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                            enter-to-class="opacity-100 translate-y-0 sm:scale-100"
+                                            leave-active-class="ease-in duration-200"
+                                            leave-class="opacity-100 translate-y-0 sm:scale-100"
+                                            leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                        >
+                                            <div
+                                                class=" bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full md:w-2/3"
+                                                role="dialog"
+                                                aria-modal="true"
+                                                aria-labelledby="modal-headline"
+                                                v-show="showProduct"
+                                            >
+                                                <div
+                                                    class="bg-white px-4 pt-4 pb-3 sm:p-6 sm:pb-4"
+                                                >
+                                                    <div class="mb-3">
+                                                        <h3
+                                                            class="text-xl font-semibold text-gray-700 mb-1"
+                                                        >
+                                                            Add new Menu
+                                                        </h3>
+                                                        <p
+                                                            class="text-gray-500"
+                                                        >
+                                                            Add cake and other
+                                                            menu for dapurdays
+                                                            here.
+                                                        </p>
+                                                    </div>
+                                                    <div class="rounded-md">
+                                                        <div class="">
+                                                            <div class="grid grid-cols-12 gap-2">
+                                                                <div class="col-span-9">
+                                                                    <label
+                                                                        for="name"
+                                                                        class=" text-sm font-bold"
+                                                                        >Name</label
+                                                                    >
+                                                                    <input
+                                                                        aria-label="name address"
+                                                                        name="name"
+                                                                        type="text"
+                                                                        required
+                                                                        autofocus
+                                                                        class=" appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control @error('name') is-invalid @enderror"
+                                                                        id="name"
+                                                                    />
+                                                                </div>
+                                                                <div class="flex flex-col col-span-3">
+                                                                    <label
+                                                                        for="category" class=" text-sm font-bold"
+                                                                        >Category</label
+                                                                    >
+                                                                    <select
+                                                                        name="category"
+                                                                        id="category" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                                                                    >
+                                                                        <option
+                                                                            value="1"
+                                                                            >Brownies</option
+                                                                        >
+                                                                        <option
+                                                                            value="2"
+                                                                            >Cakes</option
+                                                                        >
+                                                                        <option
+                                                                            value="3"
+                                                                            >Cheesecake</option
+                                                                        >
+                                                                        <option
+                                                                            value="4"
+                                                                            >Cookies</option
+                                                                        >
+                                                                        <option
+                                                                            value="5"
+                                                                            >Cupcakes</option
+                                                                        >
+                                                                        <option
+                                                                            value="6"
+                                                                            >MilleCrepe</option
+                                                                        >
+                                                                        <option
+                                                                            value="7"
+                                                                            >Vegan</option
+                                                                        >
+                                                                        <option
+                                                                            value="8"
+                                                                            >Unicorn</option
+                                                                        >
+                                                                        <option
+                                                                            value="9"
+                                                                            >Bundles</option
+                                                                        >
+                                                                        <option
+                                                                            value="10"
+                                                                            >Ice
+                                                                            Cream
+                                                                            Cakes</option
+                                                                        >
+                                                                        <option
+                                                                            value="11"
+                                                                            >Others</option
+                                                                        >
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div>
+                                                            <label
+                                                                for="description"
+                                                                class=" text-sm font-bold"
+                                                                >Description</label
+                                                            >
+                                                            <textarea
+                                                                name="description"
+                                                                id=""
+                                                                cols="30"
+                                                                rows="10"
+                                                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control @error('email') is-invalid @enderror"
+                                                            ></textarea>
+                                                        </div>
+                                                        <br />
+                                                        <div
+                                                            class="grid grid-cols-12 gap-2"
+                                                        >
+                                                            <div
+                                                                class="col-span-8"
+                                                            >
+                                                                <label
+                                                                    for="price"
+                                                                    class=" text-sm font-bold"
+                                                                    >Price</label
+                                                                >
+                                                                <div
+                                                                    class="flex items-center"
+                                                                >
+                                                                    <span
+                                                                        class="mr-2"
+                                                                        >RM</span
+                                                                    >
+                                                                    <input
+                                                                        aria-label="Password"
+                                                                        name="price"
+                                                                        type="number"
+                                                                        required
+                                                                        id="price"
+                                                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control "
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <label
+                                                                    for="image"
+                                                                    class=" text-sm font-bold"
+                                                                    >Image</label
+                                                                >
+                                                                <input
+                                                                    type="file"
+                                                                    name="image"
+                                                                    id="image"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
+                                                >
+                                                    <div
+                                                        class="w-1/2 flex-row-reverse flex"
+                                                    >
+                                                        <span
+                                                            class="mb-2 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto ml-2"
+                                                        >
+                                                            <button
+                                                                type="submit"
+                                                                class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-yellow-300 text-base font-medium text-black shadow-sm focus:outline-none  hover:bg-yellow-300 hover:shadow-outline-yellow focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                                            >
+                                                                Continue
+                                                            </button>
+                                                        </span>
+                                                        <span
+                                                            class="mb-2 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                                                @click="
+                                                                    showProduct = false
+                                                                "
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </transition>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </transition>
+                </div>
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
@@ -536,9 +798,15 @@
 
 <script>
 import DashboardLayout from "../../../Layouts/DashboardLayout.vue";
+import MenuCreate from "../../../Pages/Admin/Menu/Create";
 // import Welcome from '@/Jetstream/Welcome'
 
 export default {
-    components: { DashboardLayout }
+    components: { DashboardLayout, MenuCreate },
+    data() {
+        return {
+            showProduct: true
+        };
+    }
 };
 </script>

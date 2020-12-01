@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::get('/admin/dashboard', function () {
 // })->name('dashboard');
 
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('/admin/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/admin/menus', [MenuController::class, 'index'])->name('menus');
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
     Route::get('/admin/customers', [CustomerController::class, 'index'])->name('customers');
 });

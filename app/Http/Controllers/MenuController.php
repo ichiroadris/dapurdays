@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ProductController extends Controller
+class MenuController extends Controller
 {
     public function index() {
-        return Inertia::render('Admin/Product/Index');
+        return Inertia::render('Admin/Menu/Index');
     }
 }
