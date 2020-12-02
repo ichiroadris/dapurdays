@@ -22,11 +22,11 @@
                         <p class="font-semibold text-2xl">
                             RM {{ menu.cake_price.toFixed(2) }}
                         </p>
-                        <button
+                        <inertia-link :href="`/menu/${menu.id}/purchase`"
                             class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
                         >
                             Purchase
-                        </button>
+                        </inertia-link>
                     </div>
                 </div>
             </div>

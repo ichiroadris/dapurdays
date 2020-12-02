@@ -306,6 +306,7 @@
                                     <th class="px-4 py-3">Price</th>
                                     <th class="px-4 py-3">Category</th>
                                     <th class="px-4 py-3">Date</th>
+                                    <th class="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody
@@ -335,7 +336,7 @@
                                             </div>
                                             <div>
                                                 <p class="font-semibold">
-                                                    {{menu.cake_name}}
+                                                    {{ menu.cake_name }}
                                                 </p>
                                                 <!-- <p
                                                     class="text-xs text-gray-600 dark:text-gray-400"
@@ -346,17 +347,40 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        RM {{menu.cake_price.toFixed(2)}}
+                                        RM {{ menu.cake_price.toFixed(2) }}
                                     </td>
                                     <td class="px-4 py-3 text-xs">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                                         >
-                                            {{menu.cake_type.charAt(0).toUpperCase() + menu.cake_type.slice(1)}}
+                                            {{
+                                                menu.cake_type
+                                                    .charAt(0)
+                                                    .toUpperCase() +
+                                                    menu.cake_type.slice(1)
+                                            }}
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{$luxon(menu.created_at)}}
+                                        {{ $luxon(menu.created_at) }}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-red-600">
+                                        <button @click="deleteProduct(menu.id)">
+                                            <svg
+                                                class="w-6 h-6"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                ></path>
+                                            </svg>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -506,6 +530,11 @@ export default {
         },
         selectFile(event) {
             this.form.image = event.target.files[0];
+        },
+        deleteProduct(menuid) {
+            this.$inertia.post('/admin/product/delete', {
+                'menuid' : menuid
+            });
         }
     }
 };
