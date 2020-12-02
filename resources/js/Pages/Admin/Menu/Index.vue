@@ -36,6 +36,7 @@
                             <form
                                 action="/admin/users/create"
                                 method="POST"
+                                @submit.prevent="addMenu"
                                 enctype="multipart/form-data"
                             >
                                 <div class="fixed z-40 inset-0 overflow-y-auto">
@@ -94,8 +95,12 @@
                                                     </div>
                                                     <div class="rounded-md">
                                                         <div class="">
-                                                            <div class="grid grid-cols-12 gap-2">
-                                                                <div class="col-span-9">
+                                                            <div
+                                                                class="grid grid-cols-12 gap-2"
+                                                            >
+                                                                <div
+                                                                    class="col-span-9"
+                                                                >
                                                                     <label
                                                                         for="name"
                                                                         class=" text-sm font-bold"
@@ -105,65 +110,75 @@
                                                                         aria-label="name address"
                                                                         name="name"
                                                                         type="text"
+                                                                        v-model="
+                                                                            form.name
+                                                                        "
                                                                         required
                                                                         autofocus
                                                                         class=" appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control @error('name') is-invalid @enderror"
                                                                         id="name"
                                                                     />
                                                                 </div>
-                                                                <div class="flex flex-col col-span-3">
+                                                                <div
+                                                                    class="flex flex-col col-span-3"
+                                                                >
                                                                     <label
-                                                                        for="category" class=" text-sm font-bold"
+                                                                        for="category"
+                                                                        class=" text-sm font-bold"
                                                                         >Category</label
                                                                     >
                                                                     <select
                                                                         name="category"
-                                                                        id="category" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                                                                        v-model="
+                                                                            form.category
+                                                                        "
+                                                                        id="category"
+                                                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                                                                     >
                                                                         <option
-                                                                            value="1"
+                                                                            value="brownies"
                                                                             >Brownies</option
                                                                         >
                                                                         <option
-                                                                            value="2"
+                                                                            value="cakes"
                                                                             >Cakes</option
                                                                         >
                                                                         <option
-                                                                            value="3"
+                                                                            value="cheesecake"
                                                                             >Cheesecake</option
                                                                         >
                                                                         <option
-                                                                            value="4"
+                                                                            value="cookies"
                                                                             >Cookies</option
                                                                         >
                                                                         <option
-                                                                            value="5"
+                                                                            value="cupcakes"
                                                                             >Cupcakes</option
                                                                         >
                                                                         <option
-                                                                            value="6"
+                                                                            value="millecrepe"
                                                                             >MilleCrepe</option
                                                                         >
                                                                         <option
-                                                                            value="7"
+                                                                            value="vegan"
                                                                             >Vegan</option
                                                                         >
                                                                         <option
-                                                                            value="8"
+                                                                            value="unicorn"
                                                                             >Unicorn</option
                                                                         >
                                                                         <option
-                                                                            value="9"
+                                                                            value="bundles"
                                                                             >Bundles</option
                                                                         >
                                                                         <option
-                                                                            value="10"
+                                                                            value="icecreamcakes"
                                                                             >Ice
                                                                             Cream
                                                                             Cakes</option
                                                                         >
                                                                         <option
-                                                                            value="11"
+                                                                            value="others"
                                                                             >Others</option
                                                                         >
                                                                     </select>
@@ -179,7 +194,11 @@
                                                             >
                                                             <textarea
                                                                 name="description"
-                                                                id=""
+                                                                id="description"
+                                                                v-model="
+                                                                    form.description
+                                                                "
+                                                                required
                                                                 cols="30"
                                                                 rows="10"
                                                                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control @error('email') is-invalid @enderror"
@@ -208,6 +227,9 @@
                                                                         aria-label="Password"
                                                                         name="price"
                                                                         type="number"
+                                                                        v-model="
+                                                                            form.price
+                                                                        "
                                                                         required
                                                                         id="price"
                                                                         class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5 form-control "
@@ -223,7 +245,11 @@
                                                                 <input
                                                                     type="file"
                                                                     name="image"
+                                                                    @change="
+                                                                        selectFile
+                                                                    "
                                                                     id="image"
+                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -276,16 +302,20 @@
                                 <tr
                                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                                 >
-                                    <th class="px-4 py-3">Client</th>
-                                    <th class="px-4 py-3">Amount</th>
-                                    <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Price</th>
+                                    <th class="px-4 py-3">Category</th>
                                     <th class="px-4 py-3">Date</th>
                                 </tr>
                             </thead>
                             <tbody
                                 class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                             >
-                                <tr class="text-gray-700 dark:text-gray-400">
+                                <tr
+                                    v-for="menu in menus"
+                                    :key="menu.index"
+                                    class="text-gray-700 dark:text-gray-400"
+                                >
                                     <td class="px-4 py-3">
                                         <div class="flex items-center text-sm">
                                             <!-- Avatar with inset shadow -->
@@ -294,7 +324,7 @@
                                             >
                                                 <img
                                                     class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                                    :src="menu.image_url"
                                                     alt=""
                                                     loading="lazy"
                                                 />
@@ -305,388 +335,28 @@
                                             </div>
                                             <div>
                                                 <p class="font-semibold">
-                                                    Hans Burger
+                                                    {{menu.cake_name}}
                                                 </p>
-                                                <p
+                                                <!-- <p
                                                     class="text-xs text-gray-600 dark:text-gray-400"
                                                 >
                                                     10x Developer
-                                                </p>
+                                                </p> -->
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        $ 863.45
+                                        RM {{menu.cake_price.toFixed(2)}}
                                     </td>
                                     <td class="px-4 py-3 text-xs">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                                         >
-                                            Approved
+                                            {{menu.cake_type.charAt(0).toUpperCase() + menu.cake_type.slice(1)}}
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;facepad=3&amp;fit=facearea&amp;s=707b9c33066bf8808c934c8ab394dff6"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Jolina Angelie
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Unemployed
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 369.95
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-                                        >
-                                            Pending
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Sarah Curry
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Designer
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 86.00
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-                                        >
-                                            Denied
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1551006917-3b4c078c47c9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Rulia Joberts
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Actress
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 1276.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                        >
-                                            Approved
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Wenzel Dashington
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Actor
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 863.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:text-gray-100 dark:bg-gray-700"
-                                        >
-                                            Expired
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1502720705749-871143f0e671?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=b8377ca9f985d80264279f277f3a67f5"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Dave Li
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Influencer
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 863.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                        >
-                                            Approved
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Maria Ramovic
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Runner
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 863.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                        >
-                                            Approved
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1566411520896-01e7ca4726af?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Hitney Wouston
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    Singer
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 863.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                        >
-                                            Approved
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                </tr>
-
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <!-- Avatar with inset shadow -->
-                                            <div
-                                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                                            >
-                                                <img
-                                                    class="object-cover w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                    alt=""
-                                                    loading="lazy"
-                                                />
-                                                <div
-                                                    class="absolute inset-0 rounded-full shadow-inner"
-                                                    aria-hidden="true"
-                                                ></div>
-                                            </div>
-                                            <div>
-                                                <p class="font-semibold">
-                                                    Hans Burger
-                                                </p>
-                                                <p
-                                                    class="text-xs text-gray-600 dark:text-gray-400"
-                                                >
-                                                    10x Developer
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        $ 863.45
-                                    </td>
-                                    <td class="px-4 py-3 text-xs">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                        >
-                                            Approved
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
+                                        {{$luxon(menu.created_at)}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -803,10 +473,40 @@ import MenuCreate from "../../../Pages/Admin/Menu/Create";
 
 export default {
     components: { DashboardLayout, MenuCreate },
+    props: ["menus"],
     data() {
         return {
-            showProduct: true
+            showProduct: false,
+            form: {
+                name: null,
+                description: null,
+                category: null,
+                price: null,
+                image: null
+            }
         };
+    },
+    methods: {
+        addMenu() {
+            var data = new FormData();
+            data.append("name", this.form.name || "");
+            data.append("description", this.form.description || "");
+            data.append("category", this.form.category || "");
+            data.append("price", this.form.price || "");
+            data.append("image", this.form.image || "");
+            this.$inertia.post("/admin/create/menu", data);
+            this.showProduct = false;
+            this.form = {
+                name: null,
+                description: null,
+                category: null,
+                price: null,
+                image: null
+            };
+        },
+        selectFile(event) {
+            this.form.image = event.target.files[0];
+        }
     }
 };
 </script>

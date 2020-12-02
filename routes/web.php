@@ -22,9 +22,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return redirect('user/profile');
+});
+
 Route::get('/admin', function () {
     return redirect('/admin/dashboard');
 })->middleware('admin');
+
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Admin/Index');
@@ -36,6 +41,7 @@ Route::get('/admin/dashboard', function () {
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/menus', [MenuController::class, 'index'])->name('menus');
+    Route::post('/admin/create/menu', [MenuController::class, 'create']);
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
     Route::get('/admin/customers', [CustomerController::class, 'index'])->name('customers');
 });
