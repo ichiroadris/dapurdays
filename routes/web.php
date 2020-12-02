@@ -18,9 +18,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CustomerController::class, 'landingIndex']);
 
 Route::get('/dashboard', function () {
     return redirect('user/profile');
@@ -34,6 +32,8 @@ Route::get('/admin', function () {
 Route::get('/admin/dashboard', function () {
     return Inertia::render('Admin/Index');
 })->name('dashboard')->middleware('admin');
+
+Route::get('/menu/{menu}', [MenuController::class, 'show']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

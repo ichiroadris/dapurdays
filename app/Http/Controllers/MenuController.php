@@ -33,4 +33,9 @@ class MenuController extends Controller
 
         return back();
     }
+
+    public function show(Menu $menu) {
+        $menus = Menu::paginate(4);
+        return Inertia::render('Product', ['menu' => $menu, 'menus' => $menus] );
+    }
 }
